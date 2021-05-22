@@ -1,5 +1,5 @@
 [example-url]: https://cloud.githubusercontent.com/assets/2055622/24325711/eaa4ff08-11af-11e7-8550-2504c1580979.gif
-[original-url] : https://github.com/gabrieldonadel/rn-material-ui-textfield
+[original-url]: https://github.com/gabrieldonadel/rn-material-ui-textfield
 [rn-textinput]: https://facebook.github.io/react-native/docs/textinput.html#props
 [md-textfield]: https://material.io/guidelines/components/text-fields.html
 
