@@ -141,8 +141,7 @@ export default class Label extends PureComponent {
                 *
               </Animated.Text>
             )
-            :
-            null
+            : null
           }
         </Animated.Text>
       </Animated.View>

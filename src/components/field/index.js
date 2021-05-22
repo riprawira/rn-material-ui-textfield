@@ -21,15 +21,15 @@ function labelStateFromProps(props, state) {
   return !!(placeholder || value || (!receivedFocus && defaultValue))
 }
 
-function requiredStateFromDefaultValue(props) {
-  let { defaultValue } = props;
-  return defaultValue && defaultValue !== '';
-}
-
 function errorStateFromProps(props, state) {
   let { error } = props
 
   return !!error
+}
+
+function requiredStateFromProps(props) {
+  let { defaultValue, value } = props
+  return (value && value !== '') || (defaultValue && defaultValue !== '')
 }
 
 export default class TextField extends PureComponent {
@@ -173,7 +173,7 @@ export default class TextField extends PureComponent {
 
     let labelState = labelStateFromProps(this.props, { value }) ? 1 : 0
     let focusState = errorStateFromProps(this.props) ? -1 : 0
-    let requiredState = requiredStateFromDefaultValue(this.props) ? 1 : 0;
+    let requiredState = requiredStateFromProps(this.props) ? 1 : 0
 
     this.state = {
       value,
@@ -220,6 +220,12 @@ export default class TextField extends PureComponent {
     if (labelState ^ prevLabelState) {
       this.startLabelAnimation()
     }
+
+    let requiredState = requiredStateFromProps(this.props)
+    let prevRequiredState = requiredStateFromProps(prevProps)
+    if (requiredState ^ prevRequiredState) {
+      this.startRequiredAnimation(this.props.value)
+    }
   }
 
   startFocusAnimation() {
@@ -241,7 +247,7 @@ export default class TextField extends PureComponent {
 
     let options = {
       toValue: this.labelState(),
-      useNativeDriver: true,
+      useNativeDriver: false,
       duration,
     }
 
@@ -252,7 +258,7 @@ export default class TextField extends PureComponent {
     let { requiredAnimation } = this.state
     let { animationDuration: duration } = this.props
 
-    let toValue = text !== '' ? 1 : 0;
+    let toValue = text !== '' ? 1 : 0
 
     let options = {
       toValue: toValue,
@@ -409,7 +415,7 @@ export default class TextField extends PureComponent {
       text = formatText(text)
     }
 
-    this.startRequiredAnimation(text);
+    this.startRequiredAnimation(text)
 
     this.setState({ value: text })
 
