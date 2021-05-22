@@ -21,6 +21,11 @@ function labelStateFromProps(props, state) {
   return !!(placeholder || value || (!receivedFocus && defaultValue))
 }
 
+function requiredStateFromDefaultValue(props) {
+  let { defaultValue } = props;
+  return defaultValue && defaultValue !== '';
+}
+
 function errorStateFromProps(props, state) {
   let { error } = props
 
@@ -53,6 +58,8 @@ export default class TextField extends PureComponent {
     disabledLineType: 'dotted',
 
     disabled: false,
+
+    required: false,
   }
 
   static propTypes = {
@@ -98,6 +105,7 @@ export default class TextField extends PureComponent {
     disabledLineType: Line.propTypes.lineType,
 
     disabled: PropTypes.bool,
+    required: PropTypes.bool,
 
     formatText: PropTypes.func,
 
@@ -165,6 +173,7 @@ export default class TextField extends PureComponent {
 
     let labelState = labelStateFromProps(this.props, { value }) ? 1 : 0
     let focusState = errorStateFromProps(this.props) ? -1 : 0
+    let requiredState = requiredStateFromDefaultValue(this.props) ? 1 : 0;
 
     this.state = {
       value,
@@ -172,6 +181,7 @@ export default class TextField extends PureComponent {
 
       focusAnimation: new Animated.Value(focusState),
       labelAnimation: new Animated.Value(labelState),
+      requiredAnimation: new Animated.Value(requiredState),
 
       receivedFocus: false,
 
@@ -236,6 +246,21 @@ export default class TextField extends PureComponent {
     }
 
     startAnimation(labelAnimation, options)
+  }
+
+  startRequiredAnimation(text) {
+    let { requiredAnimation } = this.state
+    let { animationDuration: duration } = this.props
+
+    let toValue = text !== '' ? 1 : 0;
+
+    let options = {
+      toValue: toValue,
+      useNativeDriver: false,
+      duration,
+    }
+
+    startAnimation(requiredAnimation, options)
   }
 
   setNativeProps(props) {
@@ -384,6 +409,8 @@ export default class TextField extends PureComponent {
       text = formatText(text)
     }
 
+    this.startRequiredAnimation(text);
+
     this.setState({ value: text })
 
     if (typeof onChangeText === 'function') {
@@ -483,7 +510,7 @@ export default class TextField extends PureComponent {
   renderLabel(props) {
     let offset = this.labelOffset()
 
-    let { label, fontSize, labelFontSize, labelTextStyle } = this.props
+    let { label, fontSize, labelFontSize, labelTextStyle, required } = this.props
 
     return (
       <Label
@@ -493,6 +520,7 @@ export default class TextField extends PureComponent {
         offset={offset}
         label={label}
         style={labelTextStyle}
+        required={required}
       />
     )
   }
@@ -599,7 +627,7 @@ export default class TextField extends PureComponent {
   }
 
   render() {
-    let { labelAnimation, focusAnimation } = this.state
+    let { labelAnimation, focusAnimation, requiredAnimation } = this.state
     let {
       editable,
       disabled,
@@ -652,6 +680,7 @@ export default class TextField extends PureComponent {
 
       focusAnimation,
       labelAnimation,
+      requiredAnimation,
     }
 
     let lineProps = {

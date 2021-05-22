@@ -31,22 +31,24 @@ export default class Affix extends PureComponent {
       opacity: labelAnimation,
     }
 
+    let col = style.color || color;
+
     let textStyle = {
       includeFontPadding: false,
       textAlignVertical: 'top',
 
       fontSize,
-      color,
+      color: col,
     }
 
     switch (type) {
       case 'prefix':
-        containerStyle.paddingRight = 8
+        containerStyle.paddingRight = 2
         textStyle.textAlign = 'left'
         break
 
       case 'suffix':
-        containerStyle.paddingLeft = 8
+        containerStyle.paddingLeft = 2
         textStyle.textAlign = 'right'
         break
     }

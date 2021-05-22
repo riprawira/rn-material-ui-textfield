@@ -9,12 +9,14 @@ export default class Label extends PureComponent {
     numberOfLines: 1,
     disabled: false,
     restricted: false,
+    required: false,
   }
 
   static propTypes = {
     numberOfLines: PropTypes.number,
 
     disabled: PropTypes.bool,
+    required: PropTypes.bool,
     restricted: PropTypes.bool,
 
     fontSize: PropTypes.number.isRequired,
@@ -27,6 +29,8 @@ export default class Label extends PureComponent {
     focusAnimation: PropTypes.instanceOf(Animated.Value).isRequired,
 
     labelAnimation: PropTypes.instanceOf(Animated.Value).isRequired,
+
+    requiredAnimation: PropTypes.instanceOf(Animated.Value).isRequired,
 
     contentInset: PropTypes.shape({
       label: PropTypes.number,
@@ -48,6 +52,7 @@ export default class Label extends PureComponent {
       label,
       offset,
       disabled,
+      required,
       restricted,
       fontSize,
       activeFontSize,
@@ -58,6 +63,7 @@ export default class Label extends PureComponent {
       style,
       focusAnimation,
       labelAnimation,
+      requiredAnimation,
       ...props
     } = this.props
 
@@ -73,11 +79,26 @@ export default class Label extends PureComponent {
           inputRange: [-1, 0, 1],
           outputRange: [errorColor, baseColor, tintColor],
         })
+    
+    color = style.color || color;
 
     let textStyle = {
       lineHeight: fontSize,
       fontSize,
       color,
+    }
+
+    let requiredColor = disabled
+      ? baseColor
+      : requiredAnimation.interpolate({
+          inputRange: [0, 1],
+          outputRange: [errorColor, baseColor],
+        })
+
+    let requiredStyle = {
+      lineHeight: fontSize,
+      fontSize,
+      color: requiredColor,
     }
 
     let { x0, y0, x1, y1 } = offset
@@ -113,6 +134,16 @@ export default class Label extends PureComponent {
       <Animated.View style={[styles.container, containerStyle]}>
         <Animated.Text style={[styles.text, style, textStyle]} {...props}>
           {label}
+          {required
+            ?
+            (
+              <Animated.Text style={[styles.text, style, requiredStyle]} {...props}>
+                *
+              </Animated.Text>
+            )
+            :
+            null
+          }
         </Animated.Text>
       </Animated.View>
     )
