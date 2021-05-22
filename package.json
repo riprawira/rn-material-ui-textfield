@@ -3,6 +3,7 @@
   "version": "1.0.4",
   "license": "BSD-3-Clause",
   "contributors": [
+    "Muhammad Ari Prawira <prawira.m@gmail.com>",
     "Gabriel Donadel Dall'Agnol <gabrieldallagnol@outlook.com>",
     "Alexander Nazarov <n4kz@n4kz.com>"
   ],
@@ -37,7 +38,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/gabrieldonadel/rn-material-ui-textfield.git"
+    "url": "git://github.com/wawawiwa/rn-material-ui-textfield.git"
   },
   "dependencies": {
     "prop-types": "^15.5.9"

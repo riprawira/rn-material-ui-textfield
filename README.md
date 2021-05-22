@@ -1,15 +1,11 @@
-[npm-badge]: https://img.shields.io/npm/v/rn-material-ui-textfield.svg?colorB=ff6d00
-[npm-url]: https://npmjs.com/package/rn-material-ui-textfield
-[npm-downloads-badge]: https://img.shields.io/npm/dt/rn-material-ui-textfield.svg
-[license-badge]: https://img.shields.io/npm/l/rn-material-ui-textfield.svg?colorB=448aff
-[license-url]: https://raw.githubusercontent.com/n4kz/rn-material-ui-textfield/master/license.txt
 [example-url]: https://cloud.githubusercontent.com/assets/2055622/24325711/eaa4ff08-11af-11e7-8550-2504c1580979.gif
+[original-url] : https://github.com/gabrieldonadel/rn-material-ui-textfield
 [rn-textinput]: https://facebook.github.io/react-native/docs/textinput.html#props
 [md-textfield]: https://material.io/guidelines/components/text-fields.html
 
 # rn-material-ui-textfield
 
-[![npm][npm-badge]][npm-url] [![npm downloads][npm-downloads-badge]][npm-url] [![license][license-badge]][license-url]
+Fork from original : [original_url]
 
 Material UI texfield with consistent behaviour on iOS and Android
 
@@ -31,46 +27,6 @@ Material UI texfield with consistent behaviour on iOS and Android
 - Helper text
 - RTL support
 - Pure javascript implementation
-
-## Installation
-
-```bash
-yarn add rn-material-ui-textfield
-npm install rn-material-ui-textfield
-```
-
-## Usage
-
-```javascript
-import React, { Component } from 'react'
-import { TextField, FilledTextField, OutlinedTextField } from 'rn-material-ui-textfield'
-
-class Example extends Component {
-  fieldRef = React.createRef()
-
-  onSubmit = () => {
-    let { current: field } = this.fieldRef
-
-    console.log(field.value())
-  }
-
-  formatText = (text) => {
-    return text.replace(/[^+\d]/g, '')
-  }
-
-  render() {
-    return (
-      <OutlinedTextField
-        label="Phone number"
-        keyboardType="phone-pad"
-        formatText={this.formatText}
-        onSubmitEditing={this.onSubmit}
-        ref={this.fieldRef}
-      />
-    )
-  }
-}
-```
 
 ## Properties
 
@@ -147,20 +103,3 @@ Other [TextInput][rn-textinput] properties will also work.
 | isDefaultVisible()     | Get default value visibility  | Boolean |
 | isPlaceholderVisible() | Get placeholder visibility    | Boolean |
 | setValue()             | Set current value             |       - |
-
-## Example
-
-```bash
-git clone https://github.com/gabrieldonadel/rn-material-ui-textfield
-cd rn-material-ui-textfield/example
-yarn install
-yarn run ios # or yarn run android
-```
-
-## Contributing
-
-1. Fork it (<https://github.com/yourname/yourproject/fork>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
