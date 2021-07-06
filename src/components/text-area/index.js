@@ -1,5 +1,5 @@
 import React from 'react'
-import { Animated, View, Text } from 'react-native'
+import { Animated, View } from 'react-native'
 
 import TextField from '../field';
 import Helper from '../helper'
@@ -13,7 +13,7 @@ export default class TextArea extends TextField {
   static contentInset = {
     ...TextField.contentInset,
 
-    input: 16,
+    input: 12,
 
     top: 0,
     left: 12,
@@ -31,6 +31,22 @@ export default class TextArea extends TextField {
     super(props);
 
     super.createGetter('contentInset');
+  }
+
+  inputContainerHeight() {
+    let { labelFontSize, multiline } = this.props
+    let contentInset = this.contentInset()
+
+    if (Platform.OS === 'web' && multiline) {
+      return 'auto'
+    }
+
+    return (
+      contentInset.top +
+      labelFontSize +
+      super.inputHeight() +
+      contentInset.input
+    )
   }
 
   renderLabel(props) {
@@ -99,6 +115,17 @@ export default class TextArea extends TextField {
     )
   }
 
+  renderAccessory(acc) {
+    let { value } = super.state;
+    if (!!acc && typeof acc === 'function' && !!value && value !== '') {
+      return (
+        <View style={styles.accessoryContainer}>
+          {acc()}
+        </View>
+      );
+    } else return null;
+  }
+
   render() {
     let { focusAnimation, requiredAnimation } = this.state
     let {
@@ -111,6 +138,7 @@ export default class TextArea extends TextField {
       baseColor,
       errorColor,
       containerStyle,
+      accessory,
       inputContainerStyle: inputContainerStyleOverrides,
     } = this.props
 
@@ -119,7 +147,7 @@ export default class TextArea extends TextField {
     let contentInset = this.contentInset();
 
     let inputContainerStyle = {
-      paddingTop: contentInset.top,
+      paddingTop: contentInset.input,
       paddingRight: contentInset.right,
       paddingBottom: contentInset.input,
       paddingLeft: contentInset.left,
@@ -162,16 +190,22 @@ export default class TextArea extends TextField {
       disabledLineWidth,
     }
 
+    let rowStyle = [
+      styles.row,
+      !!accessory ? styles.rowPadding : null
+    ]
+
     return (
       <View {...containerProps}>
         {this.renderLabel(styleProps)}
         <Animated.View {...inputContainerProps}>
           {this.renderBorder(lineProps)}
           <View style={styles.stack}>
-            <View style={styles.row}>
+            <View style={rowStyle}>
               {super.renderInput()}
             </View>
           </View>
+          {this.renderAccessory(accessory)}
         </Animated.View>
         {this.renderHelper()}
       </View>
