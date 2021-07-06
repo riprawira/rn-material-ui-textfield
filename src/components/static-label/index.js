@@ -56,7 +56,7 @@ export default class StaticLabel extends PureComponent {
       ? errorColor
       : baseColor;
     
-    // color = style.color || color;
+    color = style.color || color;
 
     let textStyle = {
       lineHeight: fontSize,

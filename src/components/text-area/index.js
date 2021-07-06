@@ -34,12 +34,12 @@ export default class TextArea extends TextField {
   }
 
   renderLabel(props) {
-    let { label, fontSize, labelTextStyle, required } = this.props
+    let { label, labelFontSize, labelTextStyle, required } = this.props
 
     return (
       <StaticLabel
         {...props}
-        fontSize={fontSize}
+        fontSize={labelFontSize}
         label={label}
         style={labelTextStyle}
         required={required}
