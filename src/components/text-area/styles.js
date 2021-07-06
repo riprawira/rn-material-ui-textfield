@@ -1,4 +1,4 @@
-import { StyleSheet, I18nManager } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   row: {
@@ -7,10 +7,21 @@ export default StyleSheet.create({
     alignItems: 'flex-end',
   },
 
+  rowPadding: {
+    paddingRight: 32,
+  },
+
   helperContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
+  },
+
+  accessoryContainer: {
+    width: 32,
+    height: '100%',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
   },
 
   stack: {
