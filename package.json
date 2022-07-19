@@ -38,10 +38,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/wawawiwa/rn-material-ui-textfield.git"
+    "url": "git://github.com/riprawira/rn-material-ui-textfield.git"
   },
   "dependencies": {
-    "prop-types": "^15.5.9"
+    "deprecated-react-native-prop-types": "^2.3.0",
+    "prop-types": ">=15.5.9"
   },
   "peerDependencies": {
     "react": ">=16.3.0",

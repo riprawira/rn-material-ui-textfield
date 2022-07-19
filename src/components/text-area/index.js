@@ -1,13 +1,13 @@
 import React from 'react'
 import { Animated, View } from 'react-native'
 
-import TextField from '../field';
+import TextField from '../field'
 import Helper from '../helper'
 import Counter from '../counter'
-import Border from '../border';
-import StaticLabel from '../static-label';
+import Border from '../border'
+import StaticLabel from '../static-label'
 
-import styles from './styles';
+import styles from './styles'
 
 export default class TextArea extends TextField {
   static contentInset = {
@@ -25,12 +25,12 @@ export default class TextArea extends TextField {
 
     lineWidth: 1,
     multiline: true,
-  };
+  }
 
   constructor(props) {
-    super(props);
+    super(props)
 
-    super.createGetter('contentInset');
+    super.createGetter('contentInset')
   }
 
   inputContainerHeight() {
@@ -41,12 +41,7 @@ export default class TextArea extends TextField {
       return 'auto'
     }
 
-    return (
-      contentInset.top +
-      labelFontSize +
-      super.inputHeight() +
-      contentInset.input
-    )
+    return contentInset.top + labelFontSize + super.inputHeight() + contentInset.input
   }
 
   renderLabel(props) {
@@ -116,14 +111,10 @@ export default class TextArea extends TextField {
   }
 
   renderAccessory(acc) {
-    let { value } = super.state;
+    let { value } = super.state
     if (!!acc && typeof acc === 'function' && !!value && value !== '') {
-      return (
-        <View style={styles.accessoryContainer}>
-          {acc()}
-        </View>
-      );
-    } else return null;
+      return <View style={styles.accessoryContainer}>{acc()}</View>
+    } else return null
   }
 
   render() {
@@ -144,7 +135,7 @@ export default class TextArea extends TextField {
 
     let restricted = this.isRestricted()
 
-    let contentInset = this.contentInset();
+    let contentInset = this.contentInset()
 
     let inputContainerStyle = {
       paddingTop: contentInset.input,
@@ -190,10 +181,7 @@ export default class TextArea extends TextField {
       disabledLineWidth,
     }
 
-    let rowStyle = [
-      styles.row,
-      !!accessory ? styles.rowPadding : null
-    ]
+    let rowStyle = [styles.row, !!accessory ? styles.rowPadding : null]
 
     return (
       <View {...containerProps}>
@@ -201,9 +189,7 @@ export default class TextArea extends TextField {
         <Animated.View {...inputContainerProps}>
           {this.renderBorder(lineProps)}
           <View style={styles.stack}>
-            <View style={rowStyle}>
-              {super.renderInput()}
-            </View>
+            <View style={rowStyle}>{super.renderInput()}</View>
           </View>
           {this.renderAccessory(accessory)}
         </Animated.View>

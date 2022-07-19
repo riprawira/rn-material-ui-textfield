@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import { Animated, Text } from 'react-native'
+import { Animated } from 'react-native'
+import { TextPropTypes } from 'deprecated-react-native-prop-types'
 
 import styles from './styles'
 
@@ -43,7 +44,7 @@ export default class Label extends PureComponent {
       y1: PropTypes.number,
     }),
 
-    style: Text.propTypes.style,
+    style: TextPropTypes.style,
     label: PropTypes.string,
   }
 
@@ -79,8 +80,8 @@ export default class Label extends PureComponent {
           inputRange: [-1, 0, 1],
           outputRange: [errorColor, baseColor, tintColor],
         })
-    
-    color = style.color || color;
+
+    color = style.color || color
 
     let textStyle = {
       lineHeight: fontSize,
@@ -134,15 +135,11 @@ export default class Label extends PureComponent {
       <Animated.View style={[styles.container, containerStyle]}>
         <Animated.Text style={[styles.text, style, textStyle]} {...props}>
           {label}
-          {required
-            ?
-            (
-              <Animated.Text style={[styles.text, style, requiredStyle]} {...props}>
-                *
-              </Animated.Text>
-            )
-            : null
-          }
+          {required ? (
+            <Animated.Text style={[styles.text, style, requiredStyle]} {...props}>
+              *
+            </Animated.Text>
+          ) : null}
         </Animated.Text>
       </Animated.View>
     )
