@@ -32,7 +32,7 @@ export default class Affix extends PureComponent {
       opacity: labelAnimation,
     }
 
-    let col = style.color || color;
+    let col = style.color || color
 
     let textStyle = {
       includeFontPadding: false,

@@ -81,7 +81,7 @@ export default class Label extends PureComponent {
           outputRange: [errorColor, baseColor, tintColor],
         })
 
-    color = style.color || color;
+    color = style.color || color
 
     let textStyle = {
       lineHeight: fontSize,
@@ -135,15 +135,11 @@ export default class Label extends PureComponent {
       <Animated.View style={[styles.container, containerStyle]}>
         <Animated.Text style={[styles.text, style, textStyle]} {...props}>
           {label}
-          {required
-            ?
-            (
-              <Animated.Text style={[styles.text, style, requiredStyle]} {...props}>
-                *
-              </Animated.Text>
-            )
-            : null
-          }
+          {required ? (
+            <Animated.Text style={[styles.text, style, requiredStyle]} {...props}>
+              *
+            </Animated.Text>
+          ) : null}
         </Animated.Text>
       </Animated.View>
     )
