@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import { Animated, Text, View } from 'react-native'
+import { TextPropTypes } from 'deprecated-react-native-prop-types'
 
 import styles from './styles'
 
@@ -27,7 +28,7 @@ export default class StaticLabel extends PureComponent {
 
     requiredAnimation: PropTypes.instanceOf(Animated.Value).isRequired,
 
-    style: Text.propTypes.style,
+    style: TextPropTypes.style,
     label: PropTypes.string,
   }
 
@@ -55,7 +56,7 @@ export default class StaticLabel extends PureComponent {
       : restricted
       ? errorColor
       : baseColor;
-    
+
     color = style.color || color;
 
     let textStyle = {
